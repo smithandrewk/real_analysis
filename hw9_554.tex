@@ -1,0 +1,231 @@
+\documentclass[12pt]{article}
+\usepackage[%
+	letterpaper,%
+	includeheadfoot,%
+	margin=0.5in,%
+	headheight=0.21in,%
+	footskip=0.51in%
+]{geometry}
+
+% Heading information
+\newcommand{\documentname}{Homework 9}
+\newcommand{\classname}{Math 554 --- H01}
+\newcommand{\semester}{Fall 2020}
+\newcommand{\lastrevised}{\today}
+\newcommand{\duedate}{September 14, 2020}
+\newcommand{\yourname}{Andrew Smith}
+
+% standard AMS math packages
+\usepackage{amssymb,amsmath,amsthm}
+
+% problem + solution Environments
+\usepackage{environ}
+\usepackage{tabto}
+\usepackage[svgnames]{xcolor}
+\usepackage{framed}
+\usepackage{changepage}
+\definecolor{shadecolor}{rgb}{0.8,1.00,0.95}
+% the solutions are printed if the following is 1
+% they are not printed if it is 0
+\def\printsolutions{1}
+% problem environment
+\newcounter{ProblemNum}
+\NewEnviron{problem}[1][]{%
+\refstepcounter{ProblemNum}
+\if\printsolutions1
+\begin{shaded}
+\else
+\bigskip
+\fi
+\noindent
+{\bf Problem%\theProblemNum%
+}
+\if\printsolutions0
+\ifx&#1&\else (#1 points) \fi
+\fi
+\BODY
+\if\printsolutions1
+\end{shaded}
+\fi
+}
+% subproblem environment
+\newcounter{SubProblemNum}[ProblemNum]
+\NewEnviron{subproblem}[1][]{%
+\refstepcounter{SubProblemNum}
+\if\printsolutions1
+\begin{shaded}
+\fi
+\begin{adjustwidth}{2em}{}
+\noindent
+%\textbf{(\alph{SubProblemNum})}
+\if\printsolutions0
+\ifx&#1&\else (#1 points) \fi
+\fi
+\BODY
+\end{adjustwidth}
+\if\printsolutions1
+\end{shaded}
+\fi
+}
+% solution environment
+\NewEnviron{solution}{%
+\if\printsolutions1
+\begin{oframed}
+\noindent
+\textbf{Solution:}
+\BODY
+\end{oframed}
+\fi
+}
+
+% Header and Footer Information
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\pagestyle{fancy}
+\lhead{\classname}
+\chead{\documentname \if\printsolutions1 --- \yourname \fi}
+\rhead{\semester}
+\lfoot{\if\printsolutions1 Due: \duedate \else Last Revised: \lastrevised\fi}
+\cfoot{}
+\rfoot{\thepage\ of \pageref{LastPage} }
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+
+% standard commands
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+\begin{document}
+
+\if\printsolutions1
+\begin{center}
+\textbf{\Large \yourname}
+\end{center}
+\else
+\begin{center}
+\textbf{\Large Due: \duedate}
+\end{center}
+\fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{problem}\textbf{2.5.7}
+Assume $s_n\neq 0$ for all $n$. Suppose ${\lim_{n \to \infty}s_n=\infty}$, prove that ${\lim_{n \to \infty}\frac{1}{s_n}=0}$. Is the converse true?
+\end{problem}
+\begin{solution}
+Assume that ${\lim_{n \to \infty}s_n=\infty}$.\newline
+We want to show that ${\lim_{n \to \infty}\frac{1}{s_n}=\infty}$.\newline
+We want to show that for $M\in\R$, there exist $N\in\N$ such that $\frac{1}{s_n}\geq M$ for $n\geq N$.\newline
+We know that for $M\in\R$, there exists $N\in\N$ such that $s_n\geq M$ for $n\geq N$.\newline
+Let $M=\frac{1}{\varepsilon}$ where $\varepsilon>0$.\newline
+Therefore, there exists $N\in\N$ such that $s_n\geq \frac{1}{\varepsilon}$ for all $n\geq N$.\newline
+Since $s_n>0$ where $n\geq N$, $s_n\geq \frac{1}{\varepsilon}\implies \varepsilon\geq \frac{1}{s_n}$ and $|\frac{1}{s_n}-0|< \varepsilon$.\newline
+We have shown for $\varepsilon>0$, there exists an $N\in\N$ such that $|\frac{1}{s_n}-0|< \varepsilon$ for $n\geq N$.\newline
+Therefore, $\lim_{n\to\infty}\frac{1}{s_n}=0$.
+\begin{flushright}
+$\qedsymbol$
+\end{flushright}
+For the converse, assume $\lim_{n\to\infty}\frac{1}{s_n}=0$.\newline
+Now, by definition, we have for $\varepsilon>0$, there exists an $N\in\N$ such that $|\frac{1}{s_n}|< \varepsilon$ for all $n\geq N$.
+We want to show for $M\in\R$, there exists $N\in\N$ such that $s_n\geq M$ for $n\geq N$.\newline
+Let $M=\frac{1}{\varepsilon}$ where $\varepsilon>0$.\newline
+We have that $|\frac{1}{s_n}|<\varepsilon\implies |s_n|> \frac{1}{\varepsilon}$.\newline
+So, we may conclude that $\lim_{n\to\infty}|s_n|=\infty$; however, it is not always the case that $\lim_{n\to\infty}s_n=\infty$ as there may be some negative $s_n$ where $|s_n|\geq \frac{1}{\varepsilon}$, but $s_m\ngeq\frac{1}{\varepsilon}$.
+\begin{flushright}
+$\qedsymbol$
+\end{flushright}
+\end{solution}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{problem}\textbf{2.6.1}
+Which statements are true?
+\end{problem}
+\begin{subproblem}\textbf{(a)}
+If $\{s_n\}$ is unbounded then it is true that either $\lim_{n\to\infty}s_n=\infty$ or else $\lim_{n\to\infty}s_n=-\infty$.
+\end{subproblem}
+\begin{solution}
+Not necessarily. Take $\{0,1,-1,2,-2,...\}$. This sequence is unbounded by the Archimedian Property, and the limit of this sequence does not diverge to positive or negative infinity.
+\end{solution}
+\begin{subproblem}\textbf{(b)}
+If $\{s_n\}$ is unbounded then $\lim_{n\to\infty}|s_n|=\infty$.
+\end{subproblem}
+\begin{solution}
+True. $\{s_n\}$ unbounded means that for $M\in\R$, there exist an $n\in\N$ such that $|s_n|\geq M$.\newline
+Thus, $\lim_{n\to\infty}|s_n|=\infty$.
+\end{solution}
+\begin{subproblem}\textbf{(c)}
+If $\{s_n\}$ and $\{t_n\}$ are both bounded then so is $\{s_n+t_n\}$.
+\end{subproblem}
+\begin{solution}
+True. $\{s_n\}$ bounded by $M$ means that all $s_n$ lie in the range $[-M,M]$. Let $M$ be the bound of $s_n$ and let $N$ be the bound of $t_n$. Taking $M+N$ to be the bound of $\{s_n+t_n\}$ guarantees that all $s_n+t_n$ lie in the range $[-(M+N),M+N]$.
+\end{solution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{problem}\textbf{2.6.2}
+If $\{s_n\}$ is bounded prove that $\{s_n/n\}$ is convergent.
+\end{problem}
+\begin{solution}
+Assume that $\{s_n\}$ is bounded.\newline
+We want to show that there is an $L$ such that for $\varepsilon>0$, there exists an $N\in\N$ such that $|s_n/n-L|<\varepsilon$.\newline
+We know that $|s_n|\leq M$ for $M\in\R$.\newline
+Since $n>0$, we multiply both sides by $\frac{1}{n}$, giving $\frac{|s_n|}{n}\leq \frac{M}{n}<\varepsilon$ for large enough $N$.
+\begin{flushright}
+$\qedsymbol$
+\end{flushright}
+\end{solution}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{problem}\textbf{2.7.5}
+Which statements are true?
+\end{problem}
+\begin{subproblem}\textbf{(a)}
+If $\{s_n\}$ and $\{t_n\}$ are both divergent then so is $\{s_n+t_n\}$.
+\end{subproblem}
+\begin{solution}
+Not necessarily true. Take $s_n=\{n\}$ and $t_n\{-n\}$. Both sequences diverge; however, $\{s_n+t_n\}=\{n-n\}=\{0\}$ converges.
+\end{solution}
+\begin{subproblem}\textbf{(b)}
+If $\{s_n\}$ and $\{t_n\}$ are both divergent then so is $\{s_nt_n\}$.
+\end{subproblem}
+\begin{solution}
+Not necessarily true. Take $s_n=t_n=(-1)^n$. Both $s_n$ and $t_n$ diverge; however, $\{s_nt_n\}=\{1\}$ converges. 
+\end{solution}
+\begin{subproblem}\textbf{(c)}
+If $\{s_n\}$ and $\{s_n+t_n\}$ are both divergent then so is $\{t_n\}$.
+\end{subproblem}
+\begin{solution}
+Not necessarily true. Take $\{s_n\}=(-1)^n$ and $\{t_n\}={0}$. So, $\{t_n\}$ converges while $\{s_n\}$ and $\{s_n+t_n\}$ diverge.
+\end{solution}
+\begin{subproblem}\textbf{(d)}
+If $\{s_n\}$ and $\{s_nt_n\}$ are both divergent then so is $\{t_n\}$.
+\end{subproblem}
+\begin{solution}
+Not necessarily true. Take $\{s_n\}=(-1)^n$ and $\{t_n\}={1}$. So, $\{t_n\}$ converges while $\{s_n\}$ and $\{s_nt_n\}$ diverge.
+\end{solution}
+\begin{subproblem}\textbf{(e)}
+If $\{s_n\}$ is convergent so too is $\{1/s_n\}$.
+\end{subproblem}
+\begin{solution}
+Not necessarily true. Take $\{s_n\}=1/n$ which is convergent; however, $\{1/s_n\}=n$ is divergent.
+\end{solution}
+\begin{subproblem}\textbf{(f)}
+If $\{s_n\}$ is convergent so too is $\{(s_n)^2\}$.
+\end{subproblem}
+\begin{solution}
+True.\newline
+We have shown that suppose $\{s_n\},\{t_n\}$ convergent sequences, then $\lim_{n\to\infty}(s_nt_n)=(\lim_{n\to\infty}s_n)(\lim_{n\to\infty}t_n)$.\newline
+Therefore, take $\lim_{n\to\infty}(s_ns_n)=(\lim_{n\to\infty}s_n)^2$.\newline
+Since $\{s_n\}$ converges, $\{(s_n)^2\}$ also converges.
+\end{solution}\begin{subproblem}\textbf{(g)}
+If $\{(s_n)^2\}$ is convergent so too is $\{s_n\}$.
+\end{subproblem}
+\begin{solution}
+Not necessarily true. Take $\{s_n\}=(-1)^n$. $s_n$ is divergent while $(s_n)^2$ is convergent.
+\end{solution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

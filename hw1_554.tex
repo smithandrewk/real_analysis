@@ -1,0 +1,316 @@
+\documentclass[12pt]{article}
+\usepackage[%
+	letterpaper,%
+	includeheadfoot,%
+	margin=0.5in,%
+	headheight=0.21in,%
+	footskip=0.51in%
+]{geometry}
+
+% Heading information
+\newcommand{\documentname}{Homework 1}
+\newcommand{\classname}{Math 554 --- H01}
+\newcommand{\semester}{Fall 2020}
+\newcommand{\lastrevised}{\today}
+\newcommand{\duedate}{August 24, 2020}
+\newcommand{\yourname}{Andrew Smith}
+
+% standard AMS math packages
+\usepackage{amssymb,amsmath,amsthm}
+
+% problem + solution Environments
+\usepackage{environ}
+\usepackage{tabto}
+\usepackage[svgnames]{xcolor}
+\usepackage{framed}
+\usepackage{changepage}
+\definecolor{shadecolor}{rgb}{0.8,1.00,0.95}
+% the solutions are printed if the following is 1
+% they are not printed if it is 0
+\def\printsolutions{1}
+% problem environment
+\newcounter{ProblemNum}
+\NewEnviron{problem}[1][]{%
+\refstepcounter{ProblemNum}
+\if\printsolutions1
+\begin{shaded}
+\else
+\bigskip
+\fi
+\noindent
+{\bf Problem%\theProblemNum%
+}
+\if\printsolutions0
+\ifx&#1&\else (#1 points) \fi
+\fi
+\BODY
+\if\printsolutions1
+\end{shaded}
+\fi
+}
+% subproblem environment
+\newcounter{SubProblemNum}[ProblemNum]
+\NewEnviron{subproblem}[1][]{%
+\refstepcounter{SubProblemNum}
+\if\printsolutions1
+\begin{shaded}
+\fi
+\begin{adjustwidth}{2em}{}
+\noindent
+%\textbf{(\alph{SubProblemNum})}
+\if\printsolutions0
+\ifx&#1&\else (#1 points) \fi
+\fi
+\BODY
+\end{adjustwidth}
+\if\printsolutions1
+\end{shaded}
+\fi
+}
+% solution environment
+\NewEnviron{solution}{%
+\if\printsolutions1
+\begin{oframed}
+\noindent
+\textbf{Solution:}
+\BODY
+\end{oframed}
+\fi
+}
+
+% Header and Footer Information
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\pagestyle{fancy}
+\lhead{\classname}
+\chead{\documentname \if\printsolutions1 --- \yourname \fi}
+\rhead{\semester}
+\lfoot{\if\printsolutions1 Due: \duedate \else Last Revised: \lastrevised\fi}
+\cfoot{}
+\rfoot{\thepage\ of \pageref{LastPage} }
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+
+% standard commands
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+\begin{document}
+
+\if\printsolutions1
+\begin{center}
+\textbf{\Large \yourname}
+\end{center}
+\else
+\begin{center}
+\textbf{\Large Due: \duedate}
+\end{center}
+\fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{problem}
+\textbf{A.2.1} This exercise introduces the idea of set equality. The identity $X = Y$ for sets means that they have identical elements. To prove such an assertion assume first that $x \in X$ is any element. Now show that $x \in Y$. Then assume that $y \in Y$ is any element. Now show that $y \in X$.
+\end{problem}
+\begin{subproblem}\textbf{(a)}
+Show that $A\cup B = B$ if and only if $A\subset B$.
+\end{subproblem}
+
+\begin{solution}\newline
+($\Rightarrow$) Assume that $A\cup B = B$.\newline
+Take $a\in A$.\newline
+By definition, $a\in A\cup B$.\newline
+By hypothesis, $a\in B$.\newline
+$\implies A\subset B$.\newline
+($\Leftarrow$) Assume that $A\subset B$.\newline
+Take $a\in A\cup B$.\newline
+By hypothesis, $a\in B$.\newline
+$\implies A\cup B\subset B$.\newline
+Now, take $b\in B$.\newline
+By definition, $b\in A\cup B$.\newline
+$\implies B\subset A\cup B$.\newline
+$\therefore A\cup B = B$\flushright $\qedsymbol$
+\end{solution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\begin{subproblem}\textbf{(b)}
+Show that $A \cap B = A$ if and only if $A \subset B$.
+\end{subproblem}
+
+\begin{solution}\newline
+($\Rightarrow$) Assume that $A\cap B = A$.\newline
+Take $a\in A$.\newline
+By the hypothesis, $a\in A\cap B\implies a\in B \implies A\subset B$.\newline
+($\Leftarrow$) Assume that $A\subset B$.\newline
+Take $a\in A\cap B$.\newline
+By definition, $a\in A$.\newline
+$\implies A\cap B\subset A$.\newline
+Now, take $b\in A$.\newline
+By hypothesis, $b\in B$.\newline
+$\implies b\in A\cap B$.\newline
+$\implies A\subset A\cap B$.\newline
+$\therefore A\cap B = A$\flushright \qedsymbol
+\end{solution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{subproblem}\textbf{(c)}
+Show that $(A \cup B) \cap C = (A \cap C)\cup (B \cap C)$.
+\end{subproblem}
+
+\begin{solution}\newline
+Take $x\in (A\cup B)\cap C$.\newline
+So $x\in A\cup B\land x\in C$.\newline
+Thus $(x\in A \lor x\in B) \land x\in C$.\newline
+Thus $(x\in A\land x\in C)\lor (x\in B\land x\in C)$.\newline
+Thus $(x\in A\cap C) \lor (x \in B\cap C)$.\newline
+Thus $x\in (A\cap C)\cup (B\cap C)$.\newline
+Thus $(A\cup B)\cap C\subset (A\cap C)\cup (B\cap C)$.\newline\newline
+Now, take $y\in(A\cap C)\cup (B\cap C)$\newline
+Thus, $y\in (A\cap C)\lor y\in (B\cap C)$\newline
+Thus, $(y\in A \land y\in C) \lor (y\in B\land y\in C)$\newline
+Thus, $(y\in A\lor y\in B) \land y\in C$.\newline
+Thus, $y\in A\cup B \land y\in C$.\newline
+Thus, $y\in (A\cup B)\cap C$.\newline
+Thus, $(A\cap C)\cup (B\cap C) \subset (A\cup B) \cap C$.\newline
+$\therefore (A\cup B) \cap C = (A\cap C)\cup (B\cap C)$\flushright$\qedsymbol$
+\end{solution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\begin{subproblem}\textbf{(f)}
+Show that $(A \cap B) \setminus C = (A \setminus C) \cap (B \setminus C)$.
+\end{subproblem}
+
+\begin{solution}
+\newline Take $x\in (A\cap B)\setminus C$.\newline
+Thus, $x\in A\cap B\land x\notin C$.\newline
+Thus, $(x\in A \land x\in B) \land x\notin C$.\newline
+Thus, $(x\in A \land x\notin C)\land(x\in B\land x\notin C)$.\newline
+Thus, $x\in A\setminus C\land x\in B\setminus C$.\newline
+Thus, $x\in (A\setminus C)\cap (B\setminus C)$.\newline
+Thus, $(A\cap B)\setminus C \subset (A\setminus C)\cap (B\setminus C)$.\newline\newline
+Now, take $y\in (A\setminus C)\cap (B\setminus C)$.\newline
+Thus, $y\in(A\setminus C)\land y\in (B\setminus C)$.\newline
+Thus, $(y\in A \land y\notin C)\land (y\in B \land y\notin C)$\newline
+Thus, $(y\in A \land y\in B)\land y\notin C$\newline
+Thus, $y\in A\cap B \land y\notin C$\newline
+Thus, $y\in (A\cap B)\setminus C$\newline
+Thus, $(A\setminus C)\cap (B\setminus C)\subset (A\cap B)\setminus C$.\newline
+$\therefore(A\cap B)\setminus C = (A\setminus C)\cap (B\setminus C)$\flushright$\qedsymbol$
+\end{solution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{subproblem}\textbf{(g)}
+Show that $\{x \in \R : x^2 + x < 0\} = (-1,0)$.
+\end{subproblem}
+
+\begin{solution}\newline
+Let $A = \{ x\in \R : x^2 + x < 0\}$. We want to show that $A=(-1,0)$.\newline
+Take $a\in A\implies a^2+a<0\implies a(a+1)<0$.\newline
+Now, the zeros of this inequality are $\{-1,0\}$.\newline
+Thus, by plugging in a value from each range separated by the zeros, we find the following:\newline 
+$(-\infty,-1)$ has a positive range\newline
+$(-1,0)$ has a negative range\newline
+$(0,\infty)$ has a positive range.\newline
+Thus, the domain which satisfies the inequality $a^2+a<0$ is $(-1,0)$.\newline
+$\therefore A= (-1,0)$.\flushright$\qedsymbol$
+\end{solution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\begin{problem}
+\textbf{A.2.2} This exercise introduces the notations $\bigcup_{n=1}^N A_i$ and $\bigcap_{n=1}^N A_i$ for the union and intersection of the sets $A_1, A_2, ..., A_N:$
+\end{problem}
+\begin{subproblem}\textbf{(a)}
+Describe the sets\newline
+\begin{center}
+$\displaystyle\bigcup_{n=1}^N(-1/n,1/n)$ and $\displaystyle\bigcap_{n=1}^N(-1/n,1/n)$.
+\end{center}
+\end{subproblem}
+\begin{solution}
+\newline Notice that $\displaystyle\bigcup_{n=1}^N(-1/n,1/n)=(-1,1)\cup (-1/2,1/2)\cup \dots \cup (-1/N,1/N)$.\newline
+Notice that $\forall m,n\in \N$ such that $n>m$, $(-1/n,/1/n)\subset(-1/m,1/m)$.\newline
+We know that $A\subset B\implies A\cup B = B$.\newline
+So, the union collapses by the previous statements.\newline
+First, $(-1/N,1/N)\subset (\frac{-1}{N-1},\frac{1}{N-1})$; therefore, $(\frac{-1}{N},\frac{1}{N})\cup(\frac{-1}{N-1},\frac{1}{N-1})=(\frac{-1}{N-1},\frac{1}{N-1})$.\newline
+Therefore, iterate this idea and we have that $\displaystyle\bigcup_{n=1}^N(-1/n,1/n)=(-1,1)$.
+\newline\newline\newline
+Now, notice that $\displaystyle\bigcap_{n=1}^N(-1/n,1/n) = $
+$(\frac{-1}{1},\frac{1}{1})\cap(\frac{-1}{2},\frac{1}{2})\cap\dots\cap(\frac{-1}{N},\frac{1}{N})$.\newline
+Notice that $\forall m,n\in \N$ such that $n>m$, $(-1/n,/1/n)\subset(-1/m,1/m)$.\newline
+We know that $A\subset B\implies A\cap B = A$.\newline
+So, the intersection collapses by the previous statements.\newline
+First, $(-1/N,1/N)\subset (\frac{-1}{N-1},\frac{1}{N-1})$; therefore, $(\frac{-1}{N},\frac{1}{N})\cap(\frac{-1}{N-1},\frac{1}{N-1})=(\frac{-1}{N},\frac{1}{N})$.\newline
+Therefore, iterate this idea and we have that $\displaystyle\bigcap_{n=1}^N(-1/n,1/n) = $
+$(\frac{-1}{N},\frac{1}{N})$
+\end{solution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\begin{subproblem}\textbf{(b)}
+Describe the sets\newline
+\begin{center}
+$\displaystyle\bigcup_{n=1}^N(-n,n)$ and $\displaystyle\bigcap_{n=1}^N(-n,n)$.
+\end{center}
+\end{subproblem}
+\begin{solution}
+\newline $\displaystyle\bigcup_{n=1}^N(-n,n) = \textstyle (-1,1)\cup (-2,2) \cup \dots \cup (-N,N)$.\newline
+Notice that $\forall m,n\in \N$ such that $n>m, (-n,n)\cup(-m,m) = (-n,n)$.\newline
+Iterate this idea, and the previous union collapses:
+\newline $\displaystyle\bigcup_{n=1}^N(-n,n)=(-N,N)$.\newline\newline\newline
+$\displaystyle\bigcap_{n=1}^N(-n,n) = (-1,1)\cap (-2,2)\cap\dots\cap(-N,N)$.\newline
+Notice that $\forall m,n\in \N$ such that $n>m, (-n,n)\cap(-m,m) = (-m,m)$.\newline
+Iterate this idea, and the previous intersection collapses: \newline $\displaystyle\bigcap_{n=1}^N(-n,n) = \textstyle (-1,1)$
+\end{solution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{subproblem}\textbf{(c)}
+Describe the sets\newline
+\begin{center}
+$\displaystyle\bigcup_{n=1}^N[n,n+1]$ and $\displaystyle\bigcap_{n=1}^N[n,n+1]$.
+\end{center}
+\end{subproblem}
+\begin{solution}
+\newline$\displaystyle\bigcup_{n=1}^N[n,n+1] = [1,2]\cup[2,3]\cup\dots\cup[N,N+1] = [1,N+1]$
+\newline\newline\newline$\displaystyle\bigcap_{n=1}^N[n,n+1]=[1,2]\cap[2,3]\cap\dots\cap[N,N+1]=\varnothing$
+
+\end{solution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\begin{problem}
+\textbf{A.2.3} This exercise introduces the notations $\bigcup_{n=1}^\infty A_i$ and $\bigcap_{n=1}^\infty A_i$ for the union and intersection of the sets $A_1, A_2, ...$
+\end{problem}
+\begin{subproblem}\textbf{(a)}
+Describe the sets\newline
+\begin{center}
+$\displaystyle\bigcup_{n=1}^\infty(-1/n,1/n)$ and $\displaystyle\bigcap_{n=1}^\infty(-1/n,1/n)$.
+\end{center}
+\end{subproblem}
+\begin{solution}
+\newline$\displaystyle\bigcup_{n=1}^\infty(-1/n,1/n) = \textstyle(-1,1)\cup(-1/2,1/2)\cup\dots\cup(\frac{-1}{\infty},\frac{1}{\infty}) = (-1,1)$
+\newline\newline\newline $\displaystyle\bigcap_{n=1}^\infty(-1/n,1/n) = (-1,1)\cap(-1/2,1/2)\cap\dots\cap(-1/\infty,1/\infty) = \varnothing$
+\end{solution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{subproblem}\textbf{(b)}
+Describe the sets\newline
+\begin{center}
+$\displaystyle\bigcup_{n=1}^\infty(-n,n)$ and $\displaystyle\bigcap_{n=1}^\infty(-n,n)$.
+\end{center}
+\end{subproblem}
+\begin{solution}
+\newline$\displaystyle\bigcup_{n=1}^\infty(-n,n)=(-1,1)\cup(-2,2)\cup\dots\cup(-\infty,\infty) = (-\infty,\infty)$.
+\newline\newline\newline $\displaystyle\bigcap_{n=1}^\infty(-n,n)=(-1,1)\cap(-2,2)\cap\dots\cap(-\infty,\infty)=(-1,1)$
+\end{solution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\begin{subproblem}\textbf{(c)}
+Describe the sets\newline
+\begin{center}
+$\displaystyle\bigcup_{n=1}^\infty[n,n+1]$ and $\displaystyle\bigcap_{n=1}^\infty[n,n+1]$.
+\end{center}
+\end{subproblem}
+\begin{solution}\newline
+$\displaystyle\bigcup_{n=1}^\infty[n,n+1]=[1,2]\cup[2,3]\cup\dots\cup[\infty,\infty+1]=[1,\infty)$
+\newline\newline\newline$\displaystyle\bigcap_{n=1}^\infty[n,n+1]=[1,2]\cap[2,3]\cap\dots\cap[\infty,\infty+1]=\varnothing
+$\newline\newline NOTE: I do not think the convention $[\infty,\infty+1]$ is correct; however, it is neither here nor there for these examples.
+\end{solution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}

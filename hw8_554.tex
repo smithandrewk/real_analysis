@@ -1,0 +1,211 @@
+\documentclass[12pt]{article}
+\usepackage[%
+	letterpaper,%
+	includeheadfoot,%
+	margin=0.5in,%
+	headheight=0.21in,%
+	footskip=0.51in%
+]{geometry}
+
+% Heading information
+\newcommand{\documentname}{Homework 8}
+\newcommand{\classname}{Math 554 --- H01}
+\newcommand{\semester}{Fall 2020}
+\newcommand{\lastrevised}{\today}
+\newcommand{\duedate}{September 11, 2020}
+\newcommand{\yourname}{Andrew Smith}
+
+% standard AMS math packages
+\usepackage{amssymb,amsmath,amsthm}
+
+% problem + solution Environments
+\usepackage{environ}
+\usepackage{tabto}
+\usepackage[svgnames]{xcolor}
+\usepackage{framed}
+\usepackage{changepage}
+\definecolor{shadecolor}{rgb}{0.8,1.00,0.95}
+% the solutions are printed if the following is 1
+% they are not printed if it is 0
+\def\printsolutions{1}
+% problem environment
+\newcounter{ProblemNum}
+\NewEnviron{problem}[1][]{%
+\refstepcounter{ProblemNum}
+\if\printsolutions1
+\begin{shaded}
+\else
+\bigskip
+\fi
+\noindent
+{\bf Problem%\theProblemNum%
+}
+\if\printsolutions0
+\ifx&#1&\else (#1 points) \fi
+\fi
+\BODY
+\if\printsolutions1
+\end{shaded}
+\fi
+}
+% subproblem environment
+\newcounter{SubProblemNum}[ProblemNum]
+\NewEnviron{subproblem}[1][]{%
+\refstepcounter{SubProblemNum}
+\if\printsolutions1
+\begin{shaded}
+\fi
+\begin{adjustwidth}{2em}{}
+\noindent
+%\textbf{(\alph{SubProblemNum})}
+\if\printsolutions0
+\ifx&#1&\else (#1 points) \fi
+\fi
+\BODY
+\end{adjustwidth}
+\if\printsolutions1
+\end{shaded}
+\fi
+}
+% solution environment
+\NewEnviron{solution}{%
+\if\printsolutions1
+\begin{oframed}
+\noindent
+\textbf{Solution:}
+\BODY
+\end{oframed}
+\fi
+}
+
+% Header and Footer Information
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\pagestyle{fancy}
+\lhead{\classname}
+\chead{\documentname \if\printsolutions1 --- \yourname \fi}
+\rhead{\semester}
+\lfoot{\if\printsolutions1 Due: \duedate \else Last Revised: \lastrevised\fi}
+\cfoot{}
+\rfoot{\thepage\ of \pageref{LastPage} }
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+
+% standard commands
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+\begin{document}
+
+\if\printsolutions1
+\begin{center}
+\textbf{\Large \yourname}
+\end{center}
+\else
+\begin{center}
+\textbf{\Large Due: \duedate}
+\end{center}
+\fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{problem}\textbf{2.2.8}
+Consider the sequence defined recursively by
+\begin{center}
+    $x_1=\sqrt{2},x_n=\sqrt{2+x_{n-1}}$.
+\end{center}
+Show, by induction, that $x_n<2$ for all $n$.
+\end{problem}
+\begin{solution}\newline
+\underline{Base Case.}\newline
+Let $n=1$. $x_1=\sqrt{2}<2$.\newline
+Let $n=2$. $x_2=\sqrt{2+x_1}=\sqrt{2+\sqrt{2}}\iff (x_2)^2=2+\sqrt{2}<2+2$ by case $n=1$.\newline
+$(x_2)^2<4$ implies that $x_2<2$.\newline
+\underline{Inductive Hypothesis.}\newline
+Assume that $x_n<2$ for $n$.\newline
+We want to show that $x_{n+1}<2$.\newline
+$x_{n+1}=\sqrt{2+x_n}\iff (x_{n+1})^2=2+x_n<2+2$ by the inductive hypothesis.\newline
+$(x_{n+1})^2<4$ implies that $x_{n+1}<2$.\flushright$\qedsymbol$
+\end{solution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{problem}\textbf{2.2.9}
+Consider the sequence defined recursively by
+\begin{center}
+    $x_1=\sqrt{2},x_n=\sqrt{2+x_{n-1}}$.
+\end{center}
+Show, by induction, that $x_n<x_{n+1}$ for all $n$.
+\end{problem}
+\begin{solution}\newline
+\underline{Base Case.}\newline
+Let $n=1$.\newline 
+We want to prove the inequality $x_1<x_2$.\newline
+It will suffice to prove $(x_1)^2<(x_2)^2$ since $x_1,x_2>0$.\newline
+The previous inequality evaluates to $2<2+\sqrt{2}$.\newline
+This implies $0<\sqrt{2}$, which is true.\newline
+Therefore, $x_1<x_2$.\newline
+\underline{Inductive Hypothesis.}\newline
+Assume that $x_n<x_{n+1}$ for $n$.\newline
+We want to show $x_{n+1}<x_{n+2}$.\newline
+It will suffice to show $(x_{n+1})^2<(x_{n+2})^2$ since $x_{n+1},x_{n+2}>0$.\newline
+Substituting in, we want $2+x_n<2+x_{n+1}\iff x_n<x_{n+1}$, which is true by the inductive hypothesis.\newline
+Therefore, $x_{n+1}<x_{n+2}.$\flushright$\qedsymbol$
+
+\end{solution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{problem}\textbf{2.4.11}
+The sequence $s_n=(-1)^n$ does not converge. For what values of $\varepsilon>0$ is it nonetheless true that there is an integer $N$ so that $|s_n-1|<\varepsilon$ whenever $n\geq N$? For what values of $\varepsilon>0$ is it nonetheless true that there is an integer $N$ so that $|s_n-0|<\varepsilon$ whenever $n\geq N$?
+\end{problem}
+\begin{solution}\newline
+$s_n=(-1)^n={-1,1,-1,...}$ oscillates between $-1$ and $1$.\newline
+So, $s_n=-1\lor s_n=1\forall n\in N$.\newline
+So, $|s_n-1|=2\lor|s_n-1|=0\forall n\in N$.\newline
+Therefore, for $\varepsilon>2$, it is nonetheless true that there is an integer $N$ so that $|s_n-1|<\varepsilon$ whenever $n\geq N$.\newline\newline
+Similarly, $|s_n-0|=1\lor |s_n-0|=1\forall n\in \N$.\newline
+Therefore, for $\varepsilon>1$, it is nonetheless true that there is an integer $N$ so that $|s_n-0|<\varepsilon$ whenever $n\geq N$.
+\end{solution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{problem}\textbf{2.4.12}
+Let $\{s_n\}$ be a sequence that assumes only integer values. Under what conditions can such a sequence converge?
+\end{problem}
+\begin{solution}\newline
+A sequence $\{s_n\}$ converges if for all $\varepsilon>0$, there exists $N\in\N$ such that $|s_n-L|<\varepsilon$ for all $n\geq N$.\newline
+Let $\varepsilon=.5$.\newline
+Now, we know that there exists an $N\in\N$ such that $|s_n-L|<.5$ for all $n\geq N$.\newline
+Take $n,m\geq N$.\newline
+$|s_n-s_m|=|s_n-L+L-s_m|=|(s_n-L)+(L-s_m)|\leq |s_n-L|+|L-s_m|=|s_n-L|-|s_m-L|<1$.\newline
+Since $s_n$ and $s_m$ are integers, $|s_n-s_m|=0$.\newline
+Therefore we see that $s_n=s_m$ for all $n\geq N$.\newline
+So $\{s_n\}$ converges to an integer $L$ for large enough $n$.\flushright$\qedsymbol$
+\end{solution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\begin{problem}\textbf{2.5.8}
+Suppose that a sequence $\{s_n\}$ of positive numbers satisfies the condition $s_{n+1}>\alpha s_n$ for all $n$ where $\alpha>1$. Show that $s_n\rightarrow\infty$.
+\end{problem}
+\begin{solution}\newline
+Assume that $\{s_n\},s_n>0$ satisfies that condition $s_{n+1}>\alpha s_n$ for all $n$ where $\alpha>1$.\newline
+We want to show that $s_n\rightarrow\infty$\newline
+$s_n\rightarrow\infty\iff \displaystyle{\lim_{n \to \infty}s_n=\infty}\iff$ for $M\in \R,\exists N\in\N$ such that $s_n>M$ for all $n\geq N$.\newline
+Let $M=\alpha s_n\in\R,N=n+1$.\newline
+We need to show that $s_{n+1}>M$ for all $n\geq N$.\newline
+\underline{Base Case.}\newline
+$s_{n+1}>M$ by assumption.\newline
+\underline{Inductive Hypothesis.}\newline
+We want to show that $s_{n+2}>M$.\newline
+We know that $s_{n+2}>\alpha s_{n+1}>\alpha\alpha s_n\iff s_{n+2}>s_{n+1}>\alpha s_n=M$.\newline
+Therefore, $s_n\rightarrow\infty$.\flushright$\qedsymbol$
+
+
+\end{solution}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

@@ -1,0 +1,168 @@
+\documentclass[12pt]{article}
+\usepackage[%
+	letterpaper,%
+	includeheadfoot,%
+	margin=0.5in,%
+	headheight=0.21in,%
+	footskip=0.51in%
+]{geometry}
+
+% Heading information
+\newcommand{\documentname}{Lecture Notes}
+\newcommand{\classname}{Math 554 --- H01}
+\newcommand{\semester}{Fall 2020}
+\newcommand{\lastrevised}{\today}
+\newcommand{\duedate}{August 26, 2020}
+\newcommand{\yourname}{Andrew Smith}
+
+% standard AMS math packages
+\usepackage{amssymb,amsmath,amsthm}
+
+% problem + solution Environments
+\usepackage{environ}
+\usepackage{tabto}
+\usepackage[svgnames]{xcolor}
+\usepackage{framed}
+\usepackage{changepage}
+\definecolor{shadecolor}{rgb}{0.8,1.00,0.95}
+% the solutions are printed if the following is 1
+% they are not printed if it is 0
+\def\printsolutions{1}
+% problem environment
+\newcounter{ProblemNum}
+\NewEnviron{problem}[1][]{%
+\refstepcounter{ProblemNum}
+\if\printsolutions1
+\begin{shaded}
+\else
+\bigskip
+\fi
+\noindent
+{\bf Problem%\theProblemNum%
+}
+\if\printsolutions0
+\ifx&#1&\else (#1 points) \fi
+\fi
+\BODY
+\if\printsolutions1
+\end{shaded}
+\fi
+}
+% subproblem environment
+\newcounter{SubProblemNum}[ProblemNum]
+\NewEnviron{subproblem}[1][]{%
+\refstepcounter{SubProblemNum}
+\if\printsolutions1
+\begin{shaded}
+\fi
+\begin{adjustwidth}{2em}{}
+\noindent
+%\textbf{(\alph{SubProblemNum})}
+\if\printsolutions0
+\ifx&#1&\else (#1 points) \fi
+\fi
+\BODY
+\end{adjustwidth}
+\if\printsolutions1
+\end{shaded}
+\fi
+}
+% solution environment
+\NewEnviron{solution}{%
+\if\printsolutions1
+\begin{oframed}
+\noindent
+\BODY
+\end{oframed}
+\fi
+}
+
+% Header and Footer Information
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\pagestyle{fancy}
+\lhead{\classname}
+\chead{\documentname \if\printsolutions1 --- \yourname \fi}
+\rhead{\semester}
+\lfoot{\if\printsolutions1 \duedate \else Last Revised: \lastrevised\fi}
+\cfoot{}
+\rfoot{\thepage\ of \pageref{LastPage} }
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+
+% standard commands
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+\begin{document}
+
+\if\printsolutions1
+\begin{center}
+\textbf{\Large \yourname}
+\end{center}
+\else
+\begin{center}
+\textbf{\Large Due: \duedate}
+\end{center}
+\fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{solution}\newline
+\underline{Discussion on HW1}\newline
+$A\subset B\iff A\cup B=B$\newline
+($\Rightarrow$) Assume $A\subset B$ to prove $A\cup B=B$\newline
+Note first $B\subset A\cup B$ by definition of union.\newline
+It remains to prove $A\cup B\subset B$\newline
+Let $x\in A\cup B$. Then $x\in A\lor x\in B$. If $x\in B$, then done.\newline
+Assume $x\in A$. Then $A\subset B\implies x\in B$.\newline
+Either way $x\in B$, so $A\cup B\subset B$.\newline
+($\Leftarrow$) Assume $A\cup B= B$. To prove $A\subset B$, $x\in A\implies x\in A\cup B\implies x\in B$.\newline
+\underline{Recall:}\newline
+\begin{center}
+    $\N\subset\Z$ where \newline
+    $\N = \{1,2,\dots\}\newline
+    \Z=\{0\pm n:n\in \N\}\newline$
+\end{center}\newline
+NOTE: ($\Z,+,x$) is a ring.
+    $x^{-1}$ does not \underline{necessarily} exist.\newline
+    In \textit{analysis}, we need \underline{ORDERING}\newline
+    $n\leq m \iff m-n\geq0$\newline
+    \underline{Constructing $\Q$}\newline
+    Some people would say\newline
+    $\Q:=\{\frac{m}{n}:m,n\in\Z,n\neq0\}$\newline
+    \underline{but} we would need equivalence\newline
+    i.e. $\frac{2}{1}=\frac{4}{2}$.\newline
+    \underline{Models of $\Q$ historically:}\newline
+    Think of how we can describe $\sqrt{2}$ in terms of rationals.\newline
+    NOTE: FieldOfFractions($\Z=\Q$).\newline
+    1. \underline{CANTOR}\newline
+    Identify $\sqrt{2}$ as a limit of a sequence of rational numbers. Take the equivalence class of all sequences of rational numbers converging to $\sqrt{2}$. Slight modification for arbitrary real numbers use equivalence classes of Cauchy sequences of rational numbers.\newline
+    2. \underline{Dedekind} used "cuts"\newline
+    We identify $\sqrt{2}$ with ($A,B$) where $A=\{x\in\Q,x^2<2\},B=\{x\in\Q, x^2>2\}$\newline
+    Then $\Q=A\cup B,A\cap B=\varnothing$.\newline
+    If $x\in A,y\in B$, then $x<y$. Now $\R$ is all the cuts.\newline\newline
+I) \underline{Field Axioms}\newline
+A1:For any $a,b\in\R$ there is a number $a+b\in\R$ and $a+b=b+a$.\newline
+A2: Addition is associative\newline
+A3: $\exists 0\in\R, (a+0=0+a=a)$\newline
+A4: $\exists-a\forall a\in\R(a+(-a)\0)$\newline
+M1: $a,b\in\R\implies ab\in\R,ab=ba$\newline
+M2: multiplication is associative\newline
+M3: multiplicative identity\newline
+M4:$\forall a\neq 0, a^{-1} \text{ exists } a\cdot a^{-1}=a^{-1}\cdot a=1$\newline
+M5: distributive\newline
+II) \underline{Order Structure}($\R$ is an ordered field)\newline
+O1: \underline{total} $a,b\in\R$ then exactly one of $a<b,a=b,b<a$ is true.\newline
+O2: transitive\newline
+O3: $a<b\implies a+c<b+c$\newline
+O4: $a<b,c>0\implies ca<cb$\newline
+A+M+O say $\R$ is ordered field, but $\Q$ are also.\newline
+To distinguish $\R$ from $\Q$ we need completeness axiom.
+\end{solution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

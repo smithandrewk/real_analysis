@@ -1,0 +1,316 @@
+\documentclass[12pt]{article}
+\usepackage[%
+	letterpaper,%
+	includeheadfoot,%
+	margin=0.5in,%
+	headheight=0.21in,%
+	footskip=0.51in%
+]{geometry}
+
+% Heading information
+\newcommand{\documentname}{Homework 2}
+\newcommand{\classname}{Math 554 --- H01}
+\newcommand{\semester}{Fall 2020}
+\newcommand{\lastrevised}{\today}
+\newcommand{\duedate}{August 26, 2020}
+\newcommand{\yourname}{Andrew Smith}
+
+% standard AMS math packages
+\usepackage{amssymb,amsmath,amsthm}
+
+% problem + solution Environments
+\usepackage{environ}
+\usepackage{tabto}
+\usepackage[svgnames]{xcolor}
+\usepackage{framed}
+\usepackage{mathtools}
+\usepackage{changepage}
+\definecolor{shadecolor}{rgb}{0.8,1.00,0.95}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
+% the solutions are printed if the following is 1
+% they are not printed if it is 0
+\def\printsolutions{1}
+% problem environment
+\newcounter{ProblemNum}
+\NewEnviron{problem}[1][]{%
+\refstepcounter{ProblemNum}
+\if\printsolutions1
+\begin{shaded}
+\else
+\bigskip
+\fi
+\noindent
+{\bf Problem%\theProblemNum%
+}
+\if\printsolutions0
+\ifx&#1&\else (#1 points) \fi
+\fi
+\BODY
+\if\printsolutions1
+\end{shaded}
+\fi
+}
+% subproblem environment
+\newcounter{SubProblemNum}[ProblemNum]
+\NewEnviron{subproblem}[1][]{%
+\refstepcounter{SubProblemNum}
+\if\printsolutions1
+\begin{shaded}
+\fi
+\begin{adjustwidth}{2em}{}
+\noindent
+%\textbf{(\alph{SubProblemNum})}
+\if\printsolutions0
+\ifx&#1&\else (#1 points) \fi
+\fi
+\BODY
+\end{adjustwidth}
+\if\printsolutions1
+\end{shaded}
+\fi
+}
+% solution environment
+\NewEnviron{solution}{%
+\if\printsolutions1
+\begin{oframed}
+\noindent
+\textbf{Solution:}
+\BODY
+\end{oframed}
+\fi
+}
+
+% Header and Footer Information
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\pagestyle{fancy}
+\lhead{\classname}
+\chead{\documentname \if\printsolutions1 --- \yourname \fi}
+\rhead{\semester}
+\lfoot{\if\printsolutions1 Due: \duedate \else Last Revised: \lastrevised\fi}
+\cfoot{}
+\rfoot{\thepage\ of \pageref{LastPage} }
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+
+% standard commands
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+\begin{document}
+
+\if\printsolutions1
+\begin{center}
+\textbf{\Large \yourname}
+\end{center}
+\else
+\begin{center}
+\textbf{\Large Due: \duedate}
+\end{center}
+\fi
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{problem}\textbf{A.2.5} This exercise promotes the use of the term \textit{mapping} in the study of functions.\newline
+If $f:X\to Y$ and $E\subset X$, then
+\begin{center}
+    $f(E)=\{y:f(x)=y\text{ for some }x\in E\}\subset Y$
+\end{center}
+is called the \textit{image} of \textit{E} under \textit{f} and we say \textit{f maps E} to the set \textit{f(E)}.
+\end{problem}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{subproblem}\textbf{(a)}
+Let $f:\R\to\R$. Give an example of sets \textit{A,B} so that
+\begin{center}
+    $f(A\cap B)\neq f(A)\cap f(B)$.
+\end{center}
+\end{subproblem}
+
+\begin{solution}\newline
+Take $x,y\in\R\text{ such that }x\neq y,f(x)=f(y)$.\newline
+Let $A=\{x\}, B=\{y\}$.\newline
+$f(A\cap B)=\varnothing$\newline
+$f(A)\cap f(B)\neq\varnothing$\newline
+$\therefore f(A\cap B)\neq f(A)\cap f(B)$.\flushright NOTE: An example of \textit{f,x,y} is $f:x\mapsto x^2$ where $x=-2,y=2$
+\end{solution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{subproblem}\textbf{(b)}
+Would $f(A\cup B) = f(A)\cup f(B)\text{ be true in general?}$
+\end{subproblem}
+
+\begin{solution}\newline
+($\subseteq$) Take $f(x)\in f(A\cup B)\implies\exists x\in A\cup B \text{ such that } f(x)=y$.\newline
+$\implies x\in A \lor x \in B$\newline
+$\implies f(x)\in f(A)\lor f(x) \in f(B)$\newline
+$\implies f(x)\in f(A)\cup f(B)\newline
+\implies f(A\cup B)\subset f(A)\cup f(B)$\newline
+($\supseteq$) Take $f(x)\in f(A)\cup f(B)\newline
+\implies f(x)\in f(A) \lor f(x) \in f(B)\newline
+\implies x\in A\lor x\in B\newline
+\implies x\in A\cup B\newline
+\implies f(x)\in f(A\cup B)\newline
+\implies f(A)\cup f(B)\subset f(A\cup B)\newline
+\therefore f(A\cup B)=f(A)\cup f(B)$
+\end{solution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{subproblem}\textbf{(c)}
+Find a function $f:\R\to\R\text{ so that } f([0,1])=\{1,2\}$.
+\end{subproblem}
+
+\begin{solution}\newline
+$f(x)=\floor{x+1}$
+\end{solution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{problem}\textbf{A.2.6}
+This exercise concerns the notion of one-to-one function (i.e., injective function):
+\end{problem}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{subproblem}\textbf{(a)}
+Show that $f:\R\to\R$ is one-to-one if and only if
+\begin{center}
+    $f(A\cap B) = f(A)\cap f(B)$
+\end{center}
+\tab \ for all sets \textit{A,B}.
+\end{subproblem}
+
+\begin{solution}\newline
+($\Rightarrow$) Assume \textit{f} is injective.\newline
+($\subseteq$) Take $y\in f(A\cap B)\implies \exists x\in A\cap B\text{ such that } f(x)=y\newline
+\implies x\in A\land x\in B\newline
+\implies y\in f(A) \land y\in f(B)\newline
+\implies y\in f(A)\cap f(B)\newline
+\implies f(A\cap B)\subset f(A)\cap f(B)$\newline
+($\supseteq$) Take $f(x)\in f(A) \cap f(B)\newline
+\implies f(x)\in f(A)\land f(x)\in f(B)\newline
+\implies x\in A\land x\in B\newline
+\implies x\in A\cap B\newline
+\implies f(x) \in f(A\cap B)\newline
+\implies f(A)\cap f(B) \subset f(A\cap B)\newline
+\therefore f(A\cap B) = f(A)\cap f(B)$\newline
+($\Leftarrow$) Assume $f(A\cap B) = f(A)\cap f(B)\newline$
+Take $A,B\in\R$. Assume $f(A)=f(B)$.\newline
+$\implies f(A)\cap f(B) \neq \varnothing\newline
+\implies f(A\cap B)\neq\varnothing\newline
+\implies A=B\newline
+\therefore f$ is injective.\flushright$\qedsymbol$
+\end{solution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\begin{subproblem}\textbf{(b)}
+Show that $f:\R\to\R$ is one-to-one if and only if $f(A)\cap f(B) =\varnothing$ for all sets \textit{A,B} with $A\cap B = \varnothing$. 
+\end{subproblem}
+
+\begin{solution}\newline
+($\Rightarrow$) Assume that \textit{f} is injective, $A,B\in\R\text{ with }A\cap B=\varnothing$.\newline
+Take $x\in f(A)\cap f(B)\newline
+\implies x\in f(A)\land x\in f(B)\newline
+\implies \exists f^{-1}(x)\in A \land \exists f^{-1}(x)\in B\newline
+\tab \Rightarrow\Leftarrow\newline
+f(A)\cap f(B)=\varnothing$\newline
+($\Leftarrow$) Assume that $f(A)\cap f(B)=\varnothing \text{ and } A\cap B=\varnothing\text{ for }A,B\in\R$.\newline
+Take $x,y\in\R$. Let $A=\{x\}, B=\{y\}$.\newline
+$\implies x\neq y$ with assumption $A\cap B=\varnothing$\newline
+$\implies f(x)\neq f(y)$ with assumption $f(A)\cap f(B)=\varnothing$\newline
+$\therefore f$ is injective.\flushright$\qedsymbol$
+\end{solution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{problem}\textbf{A.2.7}
+This exercise concerns the notion of preimage. If $f:X\to Y\text{ and } E\subset Y$, then
+\begin{center}
+    $f^{-1}(E)=\{x:f(x)=y\text{ for some }y\in E\}\subset X$
+\end{center}
+is called the preimage of \textit{E} under \textit{f}. [There may or may not be an inverse function here; $f^{-1}(E)$ has a meaning even if there is no inverse function].
+\end{problem}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{subproblem}\textbf{(a)}
+Show that $f(f^{-1}(E))\subset E\text{ for every set }E\subset\R$.
+\end{subproblem}
+
+\begin{solution}\newline
+Take $x\in E$\newline
+$f^{-1}(x) \in f^{-1}(E):=\{x:f(x)=y$ for some $y\in E\}\newline
+\implies f(f^{-1}(x))\in E\newline
+\implies f(f^{-1}(E))\subset E$\flushright$\qedsymbol$
+\end{solution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\begin{subproblem}\textbf{(b)}
+Show that $f^{-1}(f(E))\supset E\text{ for every set }E\subset \R$.
+\end{subproblem}
+
+\begin{solution}\newline
+Take $x\in E\newline
+\implies f(x)\in f(E)\newline
+f^{-1}(f(E))=\{a:f(a)=f(X)$ for some $f(x)\in f(E)\newline
+x\in f^{-1}(f(E))\newline
+\implies E\subset f^{-1}(f(E))$\flushright$\qedsymbol$
+\end{solution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{subproblem}\textbf{(c)}
+Can you simplify $f^{-1}(A\cup B)\text{ and }f^{-1}(A\cap B)$?
+\end{subproblem}
+
+\begin{solution}\newline
+Take $x\in f^{-1}(A\cup B)\newline
+\iff f(x)\in A\cup B\newline
+\iff f(x)\in A \lor f(x)\in B\newline
+\iff x\in f^{-1}(A)\lor x\in f^{-1}(B)\newline
+\iff x\in f^{-1}(A)\cup f^{-1}(B)\newline
+\therefore f^{-1}(A\cup B)=f^{-1}(A)\cup f^{-1}(B)$.\newline\newline
+Take $x\in f^{-1}(A\cap B)\newline
+\iff f(x)\in A\cap B\newline
+\iff f(x)\in A\land f(x)\in B\newline
+\iff x\in f^{-1}(A)\land x\in f^{-1}(B)\newline
+\iff x\in f^{-1}(A)\cap f^{-1}(B)\newline
+\therefore f^{-1}(A\cap B)=f^{-1}(A)\cap f^{-1}(B)$.
+\end{solution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\begin{subproblem}\textbf{(d)}
+Show that $f:\R\to\R$ is one-to-one if and only if $f^{-1}(\{b\})$ contains at most a single point for any $b\in\R$.
+\end{subproblem}
+
+\begin{solution}\newline
+($\Rightarrow$) Assume that \textit{f} is injective.
+Suppose $f^{-1}(\{b\})$ does not contain at most a single point for any $b\in\R$.\newline
+Take $x,y\in f^{-1}(\{b\})\newline
+\implies f(x)\in \{b\} \land f(y)\in\{b\}$ by definition.\newline
+$\Rightarrow\Leftarrow\newline$
+($\Leftarrow$) Assume $f^{-1}(\{b\})$ contains at most a single point for any $b\in\R$.\newline
+Take $x,y\in\R$. Let $f(x)=f(y)=b.\newline
+\implies x=y$ by the assumption that $f^{-1}(\{b\})$ contains at most a single point.\newline
+\textit{f} is injective.\flushright$\qedsymbol$
+\end{solution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{subproblem}\textbf{(e)}
+Show that $f:\R\to\R$ is onto, that is, the range of \textit{f} is all of $\R$ if and only if $f(f^{-1}(E))=E$ for every set $E\subset\R$.
+\end{subproblem}
+
+\begin{solution}\newline
+($\Rightarrow$) Assume that \textit{f} is surjective.\newline
+($\subseteq$) $x\in f(f^{-1}(E))\in E\newline
+\implies f(f^{-1}(E))\subseteq E\newline$
+($\supseteq$) $x\in E\newline
+f^{-1}(x)\in f^{-1}(E):=\{x:f(x)=y\text{ for some } y\in E\}\newline
+\implies x\in f(f^{-1}(E))\newline
+\implies E\subset f(f^{-1}(E))\newline
+\therefore f(f^{-1}(E))=E$.\newline
+($\Leftarrow$) Assume that $f(f^{-1}(E))=E$ for every set $E\subset\R\newline$
+Suppose \textit{f} is not onto.\newline
+$\implies \exists y\in\R$ such that $\forall x\in \R, f(x)\neq y$.\newline
+Let $E=\{y\}\newline
+\implies f^{-1}(E)=\varnothing\newline
+\implies f(f^{-1}(E))=\varnothing\neq\{y\}=E\newline
+\Rightarrow\Leftarrow\newline
+\therefore f$ is onto.\flushright$\qedsymbol$
+\end{solution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}

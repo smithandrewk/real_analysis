@@ -1,0 +1,248 @@
+\documentclass[12pt]{article}
+\usepackage[%
+	letterpaper,%
+	includeheadfoot,%
+	margin=0.5in,%
+	headheight=0.21in,%
+	footskip=0.51in%
+]{geometry}
+
+% Heading information
+\newcommand{\documentname}{Homework 4}
+\newcommand{\classname}{Math 554 --- H01}
+\newcommand{\semester}{Fall 2020}
+\newcommand{\lastrevised}{\today}
+\newcommand{\duedate}{August 31, 2020}
+\newcommand{\yourname}{Andrew Smith}
+
+% standard AMS math packages
+\usepackage{amssymb,amsmath,amsthm}
+
+% problem + solution Environments
+\usepackage{environ}
+\usepackage{tabto}
+\usepackage[svgnames]{xcolor}
+\usepackage{framed}
+\usepackage{changepage}
+\definecolor{shadecolor}{rgb}{0.8,1.00,0.95}
+% the solutions are printed if the following is 1
+% they are not printed if it is 0
+\def\printsolutions{1}
+% problem environment
+\newcounter{ProblemNum}
+\NewEnviron{problem}[1][]{%
+\refstepcounter{ProblemNum}
+\if\printsolutions1
+\begin{shaded}
+\else
+\bigskip
+\fi
+\noindent
+{\bf Problem%\theProblemNum%
+}
+\if\printsolutions0
+\ifx&#1&\else (#1 points) \fi
+\fi
+\BODY
+\if\printsolutions1
+\end{shaded}
+\fi
+}
+% subproblem environment
+\newcounter{SubProblemNum}[ProblemNum]
+\NewEnviron{subproblem}[1][]{%
+\refstepcounter{SubProblemNum}
+\if\printsolutions1
+\begin{shaded}
+\fi
+\begin{adjustwidth}{2em}{}
+\noindent
+%\textbf{(\alph{SubProblemNum})}
+\if\printsolutions0
+\ifx&#1&\else (#1 points) \fi
+\fi
+\BODY
+\end{adjustwidth}
+\if\printsolutions1
+\end{shaded}
+\fi
+}
+% solution environment
+\NewEnviron{solution}{%
+\if\printsolutions1
+\begin{oframed}
+\noindent
+\textbf{Solution:}
+\BODY
+\end{oframed}
+\fi
+}
+
+% Header and Footer Information
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\pagestyle{fancy}
+\lhead{\classname}
+\chead{\documentname \if\printsolutions1 --- \yourname \fi}
+\rhead{\semester}
+\lfoot{\if\printsolutions1 Due: \duedate \else Last Revised: \lastrevised\fi}
+\cfoot{}
+\rfoot{\thepage\ of \pageref{LastPage} }
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+
+% standard commands
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+\begin{document}
+
+\if\printsolutions1
+\begin{center}
+\textbf{\Large \yourname}
+\end{center}
+\else
+\begin{center}
+\textbf{\Large Due: \duedate}
+\end{center}
+\fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{problem}\textbf{1.6.2}
+Find sup $E$ and inf $E$ and (where possible) max $E$ and min $E$ for the following examples of sets:
+\end{problem}
+\begin{subproblem}\textbf{(a)}
+$E=\N$
+\end{subproblem}
+\begin{solution}\newline
+$\N$ has no upper bound; therefore, the maximum does not exist and sup $E=\infty$. The greatest lower bound for $N$ is 1, since $1\leq x$ for all $x\in E$. Since $1\in\N$ as well, min \textit{E}=inf \textit{E}=1.
+\end{solution}
+\begin{subproblem}\textbf{(b)}
+$E=\Z$
+\end{subproblem}
+\begin{solution}\newline
+$\Z$ has no upper nor lower bound; therefore, neither the maximum nor minimum exist, and sup $E=\infty$ and inf $E=-\infty$.
+\end{solution}
+\begin{subproblem}\textbf{(c)}
+$E=\Q$
+\end{subproblem}
+\begin{solution}\newline
+$\Q$ has no upper nor lower bound; therefore, neither the maximum nor minimum exist, and sup $E=\infty$ and inf $E=-\infty$.
+\end{solution}
+\begin{subproblem}\textbf{(d)}
+$E=\R$
+\end{subproblem}
+\begin{solution}\newline
+$\R$ has no upper nor lower bound; therefore, neither the maximum nor minimum exist, and sup $E=\infty$ and inf $E=-\infty$.
+\end{solution}
+\begin{subproblem}\textbf{(e)}
+$E=\{-3,2,5,7\}$
+\end{subproblem}
+\begin{solution}\newline
+The greatest lower bound of $E$ is $-3$ since $-3\leqx$ for all $x\in E$. Since $-3\in E$, inf $E$ = min $E$ = $-3$.\newline The least upper bound of $E$ is $7$ since $7\geq x$ for all $x\in E$. Since $7\in E$, sup $E$=max $E$ = $7$.
+\end{solution}
+\begin{subproblem}\textbf{(f)}
+$E=\{x:x^2<2\}$
+\end{subproblem}
+\begin{solution}\newline
+The greatest lower bound of $E$ is $-\sqrt{2}$ since $-\sqrt{2}\leq x$ for all $x\in E$. Since $-\sqrt{2}\notin E$, the minimum does not exist, but inf $E=-\sqrt{2}$.\newline
+The least upper bound of $E$ is $\sqrt{2}$ since $\sqrt{2}\geq x$ for all $x\in E$. Since $\sqrt{2}\notin E$, the maximum does not exist, but sup $E=\sqrt{2}$.
+\end{solution}
+\begin{problem}\textbf{1.6.8}
+Let \textit{A} be a set of real numbers and let $B=\{x+r:x\in A\}$ for some number \textit{r}. Find a relation between $sup A$ and $sup B$.
+\end{problem}
+\begin{solution}
+$sup B=sup A+r$\newline
+\underline{Proof}\newline
+($\geq$) Take $b\in B$.\newline
+$b=x+r, x\in A$ for some number $r$.\newline
+By definition of supremum, $x+r\leq sup B\implies x\leq supB-r$\newline
+So, $sup B-r$ is an upper bound on $A$, since $x\in A$.\newline
+So, by definition of supremum, which is the \textit{least} upper bound in particular, $sup A\leq supB-r\newline
+\implies supA+r\leq supB$.\newline
+($\leq$) By definition, since $x\in A, x\leq sup A$\newline
+Now adding $r$ to both sides gives $x+r\leq sup A+r$.\newline
+Now $x+r\in B$, so $sup A+r$ is an upper bound on $B$.\newline
+So, by definition of supremum, which is the \textit{least} upper bound in particular, $sup B\leq sup A+r$\newline
+Together, ($\leq$) and ($\geq$) imply $sup B=sup A+r$\cdot r\flushright$\qedsymbol$
+\end{solution}
+
+\begin{problem}\textbf{1.6.9}
+Let \textit{A} be a set of real numbers and let $B=\{xr:x\in A\}$ for some positive number \textit{r}. Find a relation between $sup A$ and $sup B$. (What happens if \textit{r} is negative?)
+\end{problem}
+\begin{solution}
+sup $B$ = sup $A\cdot r$. If $r$ is negative, then sup $B$ = inf $A\cdot r$.\newline
+\underline{Proof of sup $B$ = sup $A\cdot r$, $r$ positive}\newline
+($\geq$)
+Take $b\in B$.\newline
+$b=x\cdot r$ for some $x\in A$ and some positive number $r$.\newline
+Now, $x\cdot r\leq sup B$, by definition of supremum.\newline
+Multiplying by $r^{-1}$ on the right, we have $x\leq sup B\cdot r^{-1}$.\newline
+Now, since $x\in A$, $sup B\cdot r^{-1}$ is an upper bound for $A$.\newline
+Thus, by definition of supremum, which is the \textit{least} upper bound in particular,\newline
+$sup A\leq sup B\cdot r^{-1}$.\newline
+Multiplying by $r$ on the right, we have $sup A\cdot r\leq sup B$.\newline
+($\leq$) Now, take $x\in A$.\newline
+By definition, $x\leq sup A$.\newline
+Since $r$ is a positive number, we can obtain $x\cdot r\leq sup A\cdot r$.\newline
+Since $x\cdot r\in B$, we have that $sup A\cdot r$ is an upper bound on $B$.\newline
+Now, by definition of supremum, which is the \textit{least} upper bound in particular, we have\newline
+$supB\leq supA\cdot r$\newline
+Together, ($\leq$) and ($\geq$) imply sup $B$ = sup $A\cdot r$
+\begin{flushright}
+$\qedsymbol$
+\end{flushright}
+\underline{Proof of sup $B$ = inf $A\cdot r, r$ negative }\newline
+($\leq$) Take $b\in B$.\newline
+$b=x\cdot r$ for some $x\in A$ and some negative number $r$.\newline
+Now, $x\cdot r\leq sup B$ by definition of supremum.\newline
+Multiplying by $r^{-1}$ on the right, we have $x\geq sup B\cdot r^{-1}$, since $r$ and consequently $r^{-1}$ were negative.\newline
+Now, since $x\in A$, $supB\cdot r^{-1}$ is a lower bound for $A$.\newline
+Thus, by definition of infrimum, inf $A\geq sup B\cdot r^{-1}$.\newline
+Multiplying by $r$ on the right, we have $inf A\cdot r\geq supB$.\newline
+($\geq$) Take $x\in A$.\newline
+
+\dots\newline
+So $sup B\leq inf A\cdot r\newline
+\therefore $sup $B$ = inf $A\cdot r, r$ negative\flushright$\qedsymbol$
+
+
+\end{solution}
+
+\begin{problem}\textbf{1.6.13}
+Let $A$ and $B$ be sets of real numbers and write
+\begin{center}
+    $C=\{x+y:x\in A,y\in B\}$.
+\end{center}
+Find a relation among  sup $A$, sup $B$, and sup $C$.
+
+\end{problem}
+\begin{solution}
+sup $C$ = sup $B$ + sup $A$.\newline
+\underline{Proof}\newline
+($\leq$) Take $c\in C$.\newline
+$c=x+y$ for $x\in A$ and $y\in B$.\newline
+Now, $x\leq \text{sup }A$ by definition, and\newline
+$y\leq \text{sup }B$ by definition.\newline
+Together these imply $x+y\leq \text{sup }A+\text{sup }B$.\newline
+Since $\textit{sup }A+\textit{sup }B$ is an upper bound for an arbitrary element in $C$, and, by definition, supremum is the \textit{least} upper bound, we conclude:\newline
+sup $C\leq$ sup $A+$ sup $B$\newline
+($\geq$) Take $a\in A$.\newline
+Now, $\forall b\in B, a+b\leq \text{sup }C$, by definition, since all $a+b\in C$.\newline
+$\implies a\leq \text{sup }C-b$, which means that $\textit{sup }C-b$ is an upper bound for the set $A$, since we chose $a$ to be an arbitrary element of that set.\newline
+So, since the supremum of a set is the \textit{least} upper bound in particular, we have\newline 
+$\text{sup} A\leq\text{sup }C-b$.\newline
+$\implies b\leq\textit{sup }C-\textit{sup }A$, which means that $\textit{sup }C-\textit{sup }A$ is an upper bound for the set $B$.\newline
+So, since the supremum of a set is the \textit{least} upper bound in particular, we have\newline
+$\textit{sup }B\leq\textit{sup }C-\textit{sup }A$\newline
+$\implies \textit{sup }A+\textit{sup }B\leq \textit{sup }C$.\newline
+Together, ($\leq$) and ($\geq$) imply sup $C$ = sup $B$ + sup $A$\flushright$\qedsymbol$
+\end{solution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

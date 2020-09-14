@@ -1,0 +1,183 @@
+\documentclass[12pt]{article}
+\usepackage[%
+	letterpaper,%
+	includeheadfoot,%
+	margin=0.5in,%
+	headheight=0.21in,%
+	footskip=0.51in%
+]{geometry}
+
+% Heading information
+\newcommand{\documentname}{Homework 5}
+\newcommand{\classname}{Math 554 --- H01}
+\newcommand{\semester}{Fall 2020}
+\newcommand{\lastrevised}{\today}
+\newcommand{\duedate}{September 2, 2020}
+\newcommand{\yourname}{Andrew Smith}
+
+% standard AMS math packages
+\usepackage{amssymb,amsmath,amsthm}
+
+% problem + solution Environments
+\usepackage{environ}
+\usepackage{tabto}
+\usepackage[svgnames]{xcolor}
+\usepackage{framed}
+\usepackage{changepage}
+\definecolor{shadecolor}{rgb}{0.8,1.00,0.95}
+% the solutions are printed if the following is 1
+% they are not printed if it is 0
+\def\printsolutions{1}
+% problem environment
+\newcounter{ProblemNum}
+\NewEnviron{problem}[1][]{%
+\refstepcounter{ProblemNum}
+\if\printsolutions1
+\begin{shaded}
+\else
+\bigskip
+\fi
+\noindent
+{\bf Problem%\theProblemNum%
+}
+\if\printsolutions0
+\ifx&#1&\else (#1 points) \fi
+\fi
+\BODY
+\if\printsolutions1
+\end{shaded}
+\fi
+}
+% subproblem environment
+\newcounter{SubProblemNum}[ProblemNum]
+\NewEnviron{subproblem}[1][]{%
+\refstepcounter{SubProblemNum}
+\if\printsolutions1
+\begin{shaded}
+\fi
+\begin{adjustwidth}{2em}{}
+\noindent
+%\textbf{(\alph{SubProblemNum})}
+\if\printsolutions0
+\ifx&#1&\else (#1 points) \fi
+\fi
+\BODY
+\end{adjustwidth}
+\if\printsolutions1
+\end{shaded}
+\fi
+}
+% solution environment
+\NewEnviron{solution}{%
+\if\printsolutions1
+\begin{oframed}
+\noindent
+\textbf{Solution:}
+\BODY
+\end{oframed}
+\fi
+}
+
+% Header and Footer Information
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\pagestyle{fancy}
+\lhead{\classname}
+\chead{\documentname \if\printsolutions1 --- \yourname \fi}
+\rhead{\semester}
+\lfoot{\if\printsolutions1 Due: \duedate \else Last Revised: \lastrevised\fi}
+\cfoot{}
+\rfoot{\thepage\ of \pageref{LastPage} }
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+
+% standard commands
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+\begin{document}
+
+\if\printsolutions1
+\begin{center}
+\textbf{\Large \yourname}
+\end{center}
+\else
+\begin{center}
+\textbf{\Large Due: \duedate}
+\end{center}
+\fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{problem}\textbf{1.6.17}
+Let \textit{A} be a set of real numbers. Show that a real number \textit{x} is the supremum of \textit{A} if and only if $a\leq x$ for all $a\in A$ and for every positive number $\varepsilon$ there is an element $a'\in A$ such that $x-\varepsilon<a'$.
+\end{problem}
+\begin{solution}\newline
+($\Rightarrow$) Assume $x=\text{sup }A$.\newline
+Since, in particular, \textit{x} is an upper bound, $a\leq x$ for all $a\in A$.\newline
+Now, since \textit{x} is the \textit{least} upper bound of \textit{A}, $x-\varepsilon$ is not an upper bound of $A$ where $\varepsilon>0$.\newline
+Therefore, $\exists a'\in A$ such that $a'>x-\varepsilon$.\newline
+($\Leftarrow$) Assume (1) $a\leq x\forall a\in A$ and \newline
+\indent\quad\quad\quad\quad\textit{ }(2) for $\varepsilon>0,\exists a'\in A$ such that $x-\varepsilon<a'$.\newline
+By (1), $x$ is an upper bound.\newline
+Suppose $x$ is not the least upper bound $\implies \exists$ the least upper bound $M<x$ such that $a\leq M\forall a\in A$.\newline
+We have $a\leq M<x$ for all $a\in A$.\newline
+We also have $a<x-M$ for all $a\in A$.\newline
+So $x-M$ is an upper bound on $A$.
+By (2), with $\varepsilon=M$, we have $a<x-M<a',a'\in A\Rightarrow\Leftarrow$ because $x-M$ was an upper bound on $A$.\newline
+$\therefore x$ is the least upper bound $\iff$ $x=$ sup $A$.\flushright$\qedsymbol$
+\end{solution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{problem}\textbf{1.6.19}
+Using the completeness axiom, show that every nonempty set \textit{E} of real numbers that is bounded below has a greatest lower bound (i.e., inf \textit{E} exists and is a real number).
+\end{problem}
+\begin{solution}\newline
+Let $E\subset\R, E\neq\varnothing, E$ bounded below. Let $a$ be a lower bound for $E$.\newline
+By definition, $a\leq x\forall x\in E$.\newline
+Let $E'=\{-x:x\in E\}, E'\neq\varnothing$.\newline
+Multiply both sides of $a\leq x\forall x\in E$ by $-1\implies -a\geq -x\forall x\in E\newline
+\implies -a$ is an upper bound of $E'$.\newline
+By Completeness Axiom, $E'$ has a supremum. Let $y=\text{sup }E'$.\newline
+By definition, $-x\leq y,\forall x\in E\newline
+\implies x\geq -y,\forall x\in E\newline
+\implies -y$ is a lower bound for $E$.\newline
+Take $\varepsilon>0$.\newline
+By the previous theorem, we know there is an element $-x\in E'$ such that $y-\varepsilon<-x$.\newline
+Multiplying by $-1$ gives $-y+\varepsilon>x$\newline
+Thus, $-y=\text{inf }E$.\flushright$\qedsymbol$
+
+
+\end{solution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\begin{problem}\textbf{1.8.2}
+Show that any bounded, nonempty subset of $\Z$ has a maximum and a minimum.
+\end{problem}
+\begin{solution}\newline
+Assume $A\subset\Z$ is bounded above; therefore, sup $A$ exists by the completeness axiom.\newline
+Let us show that $x=\text{sup }A\in A$.\newline
+Suppose not.\newline
+This implies $\forall a\in A, a<x$.\newline
+Since $x-1$ is not an upper bound of $A$, we may pick $a\in A$ such that $x-1<a$.\newline
+Since $a<x,$ we may pick $a'\in A$ such that $a<a'\newline
+\implies x-1<a<a'<x\newline
+\implies a'-a<1 \Rightarrow\Leftarrow\newline
+\therefore \text{sup }A\in A$\newline
+Assume $B\subset\Z$ is bounded below.\newline
+Let $m$ be a lower bound of $B$.\newline
+By definition, $m\leq b\forall b\in B$.\newline
+Multiplying both sides by $-1$ gives $-m\geq -b \forahrll b\in B$.\newline
+Thus, $-m$ is an upper bound for $C=\{-b:b\in B\}.$\newline
+Thus, as proven above, sup $C\in C$.\newline
+As shown in (Problem 1.6.19), sup $C$=-inf $B$ for $C$ nonempty and bounded below.\newline
+Therefore, inf $B$ exists and since sup $C=-b,b\in B\implies $inf $B\in B$\flushright$\qedsymbol$
+\end{solution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

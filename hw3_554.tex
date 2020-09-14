@@ -1,0 +1,172 @@
+\documentclass[12pt]{article}
+\usepackage[%
+	letterpaper,%
+	includeheadfoot,%
+	margin=0.5in,%
+	headheight=0.21in,%
+	footskip=0.51in%
+]{geometry}
+
+% Heading information
+\newcommand{\documentname}{Homework 3}
+\newcommand{\classname}{Math 554 --- H01}
+\newcommand{\semester}{Fall 2020}
+\newcommand{\lastrevised}{\today}
+\newcommand{\duedate}{August 28, 2020}
+\newcommand{\yourname}{Andrew Smith}
+
+% standard AMS math packages
+\usepackage{amssymb,amsmath,amsthm}
+
+% problem + solution Environments
+\usepackage{environ}
+\usepackage{tabto}
+\usepackage[svgnames]{xcolor}
+\usepackage{framed}
+\usepackage{changepage}
+\definecolor{shadecolor}{rgb}{0.8,1.00,0.95}
+% the solutions are printed if the following is 1
+% they are not printed if it is 0
+\def\printsolutions{1}
+% problem environment
+\newcounter{ProblemNum}
+\NewEnviron{problem}[1][]{%
+\refstepcounter{ProblemNum}
+\if\printsolutions1
+\begin{shaded}
+\else
+\bigskip
+\fi
+\noindent
+{\bf Problem%\theProblemNum%
+}
+\if\printsolutions0
+\ifx&#1&\else (#1 points) \fi
+\fi
+\BODY
+\if\printsolutions1
+\end{shaded}
+\fi
+}
+% subproblem environment
+\newcounter{SubProblemNum}[ProblemNum]
+\NewEnviron{subproblem}[1][]{%
+\refstepcounter{SubProblemNum}
+\if\printsolutions1
+\begin{shaded}
+\fi
+\begin{adjustwidth}{2em}{}
+\noindent
+%\textbf{(\alph{SubProblemNum})}
+\if\printsolutions0
+\ifx&#1&\else (#1 points) \fi
+\fi
+\BODY
+\end{adjustwidth}
+\if\printsolutions1
+\end{shaded}
+\fi
+}
+% solution environment
+\NewEnviron{solution}{%
+\if\printsolutions1
+\begin{oframed}
+\noindent
+\textbf{Solution:}
+\BODY
+\end{oframed}
+\fi
+}
+
+% Header and Footer Information
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\pagestyle{fancy}
+\lhead{\classname}
+\chead{\documentname \if\printsolutions1 --- \yourname \fi}
+\rhead{\semester}
+\lfoot{\if\printsolutions1 Due: \duedate \else Last Revised: \lastrevised\fi}
+\cfoot{}
+\rfoot{\thepage\ of \pageref{LastPage} }
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+
+% standard commands
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+\begin{document}
+
+\if\printsolutions1
+\begin{center}
+\textbf{\Large \yourname}
+\end{center}
+\else
+\begin{center}
+\textbf{\Large Due: \duedate}
+\end{center}
+\fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{problem}\textbf{1.4.1}
+Using just the axioms, prove that $ad+bc<ac+bd\text{ if } a<b\text{ and } c<d$.
+\end{problem}
+\begin{solution}\newline
+Assume that $a<b$ and $c<d$.\newline 
+Note the third ordering axiom (O3) is:
+\begin{center}
+    For any $a,b\in\R$ if $a<b$ is true, then $a+c<b+c$ is also true for any $c\in\R$. 
+\end{center}
+Now, by O3, $a<b \implies a-a<b-a\implies 0<b-a.$\newline
+Note the fourth ordering axiom (O4) is:
+\begin{center}
+    For any $a,b\in\R$ if $a<b$ is true, then $a\cdot c<b\cdot c$ is also for any $c\in\R$ for which $c>0$.
+\end{center}
+Now, by O4, $c<d\implies c\cdot(b-a)<d\cdot(b-a)\implies c\cdot b - c\cdot a < d\cdot b-d
+\cdot a$ by the distributive field axiom. (AM1)\newline
+Now, by O3, $c\cdot b-c\cdot a<d\cdot b-d\cdot a\implies c\cdot b+d\cdot a<d\cdot b+c\cdot a$.\newline
+Now, by the commutativity of multiplication (M1), we have $c\cdot b+d\cdot a<d\cdot b+c\cdot a\implies b\cdot b+a\cdot d<b\cdot d+a\cdot c$.\newline
+Now, by the commutativity of addition (A1), we have $a\cdot d+b\cdot c<a\cdot c+b\cdot d$\flushright $\qedsymbol$
+\end{solution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{problem}\textbf{1.4.2}
+Show for every $n\in\N$ that $n^2\geq n$.
+\end{problem}
+\begin{solution}\newline
+Base Case:\newline
+$\underline{n=1}\newline
+1^2\geq 1$\newline
+Assume $k^2\geq k$ for $k\in\N\newline$
+We want to show $(k+1)^2\geq(k+1)$.\newline
+$(k+1)^2=k^2+2k+1\newline
+\geq k+2k+1$ because $k^2\geq k$ by the induction hypothesis\newline
+$=3k+1\newline
+\geq k+1$ because $3k>k \iff 2k>0$ which is true because we defined $k\geq 1$.\newline
+Thus, we have proven $(k+1)^2\geq(k+1)\newline
+\therefore n^2\geq n$ holds for every $n\in\N$\flushright$\qedsymbol$.
+\end{solution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{problem}\textbf{1.4.3}
+Using just the axioms, prove the \textit{arithmetic-geometric mean inequality}:
+\begin{center}
+    $\sqrt{ab}\leq\displaystyle\frac{a+b}{2}$
+\end{center}
+for any $a,b\in\R$ with $a>0$ and $b>0$. (Assume for the moment, the existence of square roots.)
+\end{problem}
+\begin{solution}\newline
+Note for $a,b\geq0, a<b\iff a^2<b^2$\newline\newline
+Since $a>0$ and $b>0$, it is clear that $\sqrt{ab}>0$ and $\displaystyle\frac{a+b}{2}>0$\newline
+Now this implies, by the first note, that $ab\leq\displaystyle\frac{(a+b)^2}{4}\newline
+\implies \displaystyle\frac{(a+b)^2}{4}-ab\geq0\newline
+\implies \displaystyle(a+b)^2-4ab\geq0\newline
+\implies a^2+b^2-2ab\geq0\newline
+\implies(a-b)^2\geq0$ which we know is true, because $a-b\in\R$ and we know that for $r\in\R, r^2>0$\flushright$\qedsymbol$
+\end{solution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

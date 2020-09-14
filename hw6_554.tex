@@ -1,0 +1,156 @@
+\documentclass[12pt]{article}
+\usepackage[%
+	letterpaper,%
+	includeheadfoot,%
+	margin=0.5in,%
+	headheight=0.21in,%
+	footskip=0.51in%
+]{geometry}
+
+% Heading information
+\newcommand{\documentname}{Homework 06}
+\newcommand{\classname}{Math 554 --- H01}
+\newcommand{\semester}{Fall 2020}
+\newcommand{\lastrevised}{\today}
+\newcommand{\duedate}{September 4, 2020}
+\newcommand{\yourname}{Andrew Smith}
+
+% standard AMS math packages
+\usepackage{amssymb,amsmath,amsthm}
+
+% problem + solution Environments
+\usepackage{environ}
+\usepackage{tabto}
+\usepackage[svgnames]{xcolor}
+\usepackage{framed}
+\usepackage{changepage}
+\definecolor{shadecolor}{rgb}{0.8,1.00,0.95}
+% the solutions are printed if the following is 1
+% they are not printed if it is 0
+\def\printsolutions{1}
+% problem environment
+\newcounter{ProblemNum}
+\NewEnviron{problem}[1][]{%
+\refstepcounter{ProblemNum}
+\if\printsolutions1
+\begin{shaded}
+\else
+\bigskip
+\fi
+\noindent
+{\bf Problem%\theProblemNum%
+}
+\if\printsolutions0
+\ifx&#1&\else (#1 points) \fi
+\fi
+\BODY
+\if\printsolutions1
+\end{shaded}
+\fi
+}
+% subproblem environment
+\newcounter{SubProblemNum}[ProblemNum]
+\NewEnviron{subproblem}[1][]{%
+\refstepcounter{SubProblemNum}
+\if\printsolutions1
+\begin{shaded}
+\fi
+\begin{adjustwidth}{2em}{}
+\noindent
+%\textbf{(\alph{SubProblemNum})}
+\if\printsolutions0
+\ifx&#1&\else (#1 points) \fi
+\fi
+\BODY
+\end{adjustwidth}
+\if\printsolutions1
+\end{shaded}
+\fi
+}
+% solution environment
+\NewEnviron{solution}{%
+\if\printsolutions1
+\begin{oframed}
+\noindent
+\textbf{Solution:}
+\BODY
+\end{oframed}
+\fi
+}
+
+% Header and Footer Information
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\pagestyle{fancy}
+\lhead{\classname}
+\chead{\documentname \if\printsolutions1 --- \yourname \fi}
+\rhead{\semester}
+\lfoot{\if\printsolutions1 Due: \duedate \else Last Revised: \lastrevised\fi}
+\cfoot{}
+\rfoot{\thepage\ of \pageref{LastPage} }
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+
+% standard commands
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+\begin{document}
+
+\if\printsolutions1
+\begin{center}
+\textbf{\Large \yourname}
+\end{center}
+\else
+\begin{center}
+\textbf{\Large Due: \duedate}
+\end{center}
+\fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{problem}\textbf{1.9.1}
+	Show that the definition of ``dense'' could be given as
+	\begin{center}
+		A set $E$ of real numbers is said to be \textit{dense} if every interval $(a,b)$ contains infinitely many points of $E$.
+	\end{center}
+\end{problem}
+\begin{solution}\newline
+Assume $E$ is dense. Take an interval $(a,b)$.\newline
+By definition, we know $\exists c_1\in E$ such that $c_1\in(a,b)$.\newline
+$\implies(a,c_1)\subset(a,b)$.\newline
+Now, we know that $\exists c_2\in E$ such that $c_2\in(a,c_1)$.\newline
+$\implies(a,c_2)\subset(a,c_1)$.\newline
+	Assume $\exists c_{n-1}\in E$ such that $c_{n-1}\in (a,c_{n-2})\newline
+	\implies (a,c_{n-1})\subset (a,c_{n-2})\newline$
+	Therefore, since $E$ is dense and $(a,c_{n-1})\in E$, $\exists c_n\in E$ such that $c_n\in(a,c_{n-1})\newline
+	\implies\{c_n:n\in\N\}\subset(a,b)\cap E\newline
+	\therefore(a,b)$ contains inifinitely many points of $E$\flushright$\qedsymbol$
+
+
+\end{solution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{problem}\textbf{1.9.3}
+If a set $E$ is dense, what can you conclude about a set $A\supset E$?
+\end{problem}
+\begin{solution}\newline
+$E$ is dense.\newline
+Therefore, for all $a,b\in\R,a<b,(a,b)\cap E\neq\varnothing$.\newline
+	Since $E\subset A$, we have for all $a,b\in\R,a<b,(a,b)\cap A\neq\varnothing$.\newline
+	Therefore, $A$ is dense.\flushright$\qedsymbol$
+\end{solution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{problem}\textbf{1.9.5}
+If two sets $E_1$ and $E_2$ are dense, what can you conclude about the set $E_1\cap E_2$?
+\end{problem}
+\begin{solution}\newline
+	We cannot conclude much in general about $E_1\cap E_2$.\newline
+Take, for exmaple $E_1=\Q$ and $E_2=\R\setminus\Q$.\newline
+Now, we have proven before that both of these sets are dense; however $E_1\cap E_2=\varnothing$ is not dense.\newline
+Take, for another example, $E_1=E_2=\Q\implies E_1\cap E_2=\Q\implies E_1\cap E_2$ is dense.\newline
+Therefore, $E_1,E_2$ dense does not necessarily imply $E_1\cap E_2$ dense.
+\end{solution}
+\end{document}
